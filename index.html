@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive vocabulary matching in a reading context.">
+  <title>Panda Vocab Matchup — v3.4 Bamboo Jade / Night</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body data-theme="bamboo">
+  <div class="app-shell" id="appShell">
+    <header class="app-header">
+      <div class="header-left">
+        <button id="sidebarToggleBtn" class="icon-btn sidebar-toggle" type="button" aria-controls="sidebar" aria-expanded="true" aria-label="Toggle sidebar" title="Toggle sidebar">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="brand-lockup">
+          <div class="brand-mark" aria-hidden="true"><img src="assets/panda-reader.webp" alt=""></div>
+          <div>
+            <h1>Panda Vocab Matchup</h1>
+            <p>Read while you learn.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="theme-switch" aria-label="Theme selection">
+          <button id="themeBambooBtn" class="theme-pill is-active" type="button" data-theme="bamboo">Bamboo Jade</button>
+          <button id="themeDarkBtn" class="theme-pill" type="button" data-theme="dark">Dark</button>
+        </div>
+        <button id="layoutToggleBtn" class="secondary-btn layout-toggle" type="button" aria-pressed="false" title="Stack text above the vocabulary matching panel">↕ Stack panels</button>
+      </div>
+    </header>
+
+    <div class="app-body" id="appBody">
+      <aside class="sidebar is-open" id="sidebar" aria-label="Options sidebar">
+        <div class="sidebar-inner">
+          <div class="sidebar-header">
+            <div>
+              <h2>Options</h2>
+            </div>
+          </div>
+
+          <section class="sidebar-section">
+            <h3>Exercise</h3>
+            <label class="field-label" for="setSizeSelect">Words per set</label>
+            <select id="setSizeSelect">
+              <option value="5">5 words</option>
+              <option value="10">10 words</option>
+              <option value="15">15 words</option>
+              <option value="20">20 words</option>
+              <option value="25">25 words</option>
+              <option value="30">30 words</option>
+              <option value="0">Unlimited</option>
+              <option value="custom" hidden>Custom</option>
+            </select>
+
+            <label class="toggle-row" for="readingModeToggle">
+              <span>Reading mode</span>
+              <input id="readingModeToggle" type="checkbox">
+            </label>
+            <label class="toggle-row" for="hoverHintsToggle">
+              <span>Hover hints</span>
+              <input id="hoverHintsToggle" type="checkbox">
+            </label>
+            <label class="toggle-row" for="highlightWordsToggle">
+              <span>Word highlighting</span>
+              <input id="highlightWordsToggle" type="checkbox" checked>
+            </label>
+
+          </section>
+
+          <section class="sidebar-section">
+            <h3>Save behaviour</h3>
+            <label class="toggle-row" for="autosaveToggle">
+              <span>Autosave current matchup</span>
+              <input id="autosaveToggle" type="checkbox">
+            </label>
+            <div class="sidebar-actions two-col">
+              <button id="saveStateBtn" class="secondary-btn" type="button">Save Now</button>
+              <button id="restoreStateBtn" class="secondary-btn" type="button">Restore</button>
+              <button id="clearSavedBtn" class="secondary-btn" type="button">Clear Saved</button>
+              <button id="resetProgressBtn" class="secondary-btn" type="button" disabled>Reset Exercise</button>
+            </div>
+            <p class="micro-note save-note">Saves locally in this browser, not as files. Autosave off by default.</p>
+          </section>
+
+          <section class="sidebar-section">
+            <h3>Exercise tools</h3>
+            <div class="sidebar-actions two-col">
+              <button id="sampleChineseBtn" class="secondary-btn" type="button">Sample Chinese</button>
+              <button id="sampleEnglishBtn" class="secondary-btn" type="button">ESL exercise</button>
+              <button id="importFileBtn" class="secondary-btn" type="button">Import .txt / .json</button>
+              <button id="exportJsonBtn" class="secondary-btn" type="button">Export JSON</button>
+            </div>
+            <input id="importExerciseFile" type="file" accept=".txt,.json,text/plain,application/json" hidden>
+          </section>
+
+          <section class="sidebar-section">
+            <h3>Workspace panels</h3>
+            <button id="showInputPanelBtn" class="secondary-btn full-width" type="button">Show input panel</button>
+            <button id="showPromptPanelBtn" class="secondary-btn full-width" type="button">Show AI prompt</button>
+            <button id="jumpToPromptBtn" class="secondary-btn full-width" type="button">AI prompt ↓</button>
+
+          </section>
+
+        </div>
+        <div id="sidebarResizer" class="sidebar-resizer" role="separator" aria-orientation="vertical" aria-label="Resize sidebar" tabindex="0"></div>
+      </aside>
+
+      <main class="main-area">
+        <section class="workspace-top" id="workspaceTop">
+          <article class="panel text-panel" id="textPanel">
+            <header class="panel-header">
+              <div>
+                <div class="panel-kicker">Reader</div>
+                <h2>Text</h2>
+
+              </div>
+              <div class="panel-tools">
+                <button id="textSmallerBtn" class="mini-btn" type="button" aria-label="Decrease text size">A−</button>
+                <span id="textSizeIndicator" class="size-indicator">23px</span>
+                <button id="textLargerBtn" class="mini-btn" type="button" aria-label="Increase text size">A+</button>
+              </div>
+            </header>
+            <div class="panel-body text-panel-body with-scene" id="readingTextBody">
+              <div id="readingText" class="reading-text empty-reader">No exercise loaded</div>
+            </div>
+          </article>
+
+          <div id="mainSplitter" class="main-splitter" role="separator" aria-orientation="vertical" aria-label="Resize text and matching panels" tabindex="0"></div>
+
+          <aside class="panel matching-panel" id="matchingPanel">
+            <header class="panel-header matching-header">
+              <div>
+                <div class="panel-kicker">Workspace</div>
+                <h2>Vocabulary Matching</h2>
+                <p id="setDescription" hidden></p>
+              </div>
+              <div class="matching-top-right">
+                <span id="setCounter" class="set-counter">Set —</span>
+                <div class="matching-header-actions">
+                  <button id="previousSetBtn" class="mini-btn" type="button" disabled aria-label="Previous set">←</button>
+                  <button id="nextSetBtn" class="mini-btn" type="button" disabled aria-label="Next set">→</button>
+                  <button id="answerBtn" class="primary-btn small-primary" type="button" disabled>Check Answers</button>
+                </div>
+              </div>
+            </header>
+
+            <div class="panel-body matching-body" id="matchingBody">
+              <!-- Keep retry controls, but no progress chatter during matching. -->
+              <div class="match-review-actions" id="matchReviewActions">
+                <button id="retryBtn" class="secondary-btn hidden" type="button">Retry Mistakes</button>
+                <button id="returnSetBtn" class="secondary-btn hidden" type="button">Back to Set</button>
+              </div>
+              <span id="setProgressLabel" hidden></span>
+              <span id="overallProgress" hidden></span>
+              <span id="progressFill" hidden></span>
+              <span id="scoreResult" hidden aria-live="polite"></span>
+
+              <section class="subpanel match-columns-shell">
+                <div id="matchBoard" class="match-board"></div>
+              </section>
+
+              <div class="completion-stack">
+                <section class="subpanel completed-card" id="completedTextCard">
+                  <div class="subpanel-header">
+                    <h3>Completed — text order</h3>
+                    <span id="completedTextScore" class="completed-score" aria-live="polite"></span>
+                  </div>
+                  <div class="subpanel-body completed-list-body">
+                    <ul id="completedBottom" class="completed-list"></ul>
+                  </div>
+                </section>
+
+                <section class="subpanel completed-card" id="completedAnswerCard">
+                  <div class="subpanel-header">
+                    <h3>Completed — order answered</h3>
+                    <span id="completedAnswerScore" class="completed-score" aria-live="polite"></span>
+                    <button id="toggleCompletedTop" class="ghost-btn" type="button">Hide</button>
+                  </div>
+                  <div class="subpanel-body completed-list-body" id="completedTopWrap">
+                    <ul id="completedTop" class="completed-list"></ul>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <!-- Thin, shared horizontal resizing rail for BOTH upper panels. -->
+        <div id="topHeightResizer" class="top-height-resizer" role="separator"
+             aria-label="Resize the height of the text and vocabulary panels"
+             aria-orientation="horizontal" aria-valuemin="260" aria-valuemax="1300"
+             aria-valuenow="560" tabindex="0" title="Drag up or down to resize both panels; double-click to reset">
+          <span class="rail-grip" aria-hidden="true"></span>
+        </div>
+
+        <section class="workspace-bottom" id="exerciseBuilderSection">
+          <section class="panel editor-panel is-resizable" id="editorPanel">
+            <header class="panel-header">
+              <div>
+                <div class="panel-kicker">Exercise builder</div>
+                <h2>Exercise Input &amp; Preview</h2>
+
+              </div>
+              <div class="panel-tools wide-tools">
+                <label class="custom-set-label" for="customSetSize">Words/set</label>
+                <input id="customSetSize" class="custom-set-input" type="number" min="1" step="1" value="5" inputmode="numeric" title="Any positive whole number of words per set">
+                <button id="applyCustomSetBtn" class="secondary-btn compact-btn" type="button">Apply</button>
+                <button id="loadExerciseBtn" class="primary-btn small-primary" type="button"><span aria-hidden="true">▣</span> Load Exercise</button>
+                <button id="toggleInputPanelBtn" class="secondary-btn panel-hide-btn" type="button" aria-expanded="true" aria-controls="editorPanel">Hide</button>
+              </div>
+            </header>
+            <!-- Quick tools stay beside the builder, not hidden in Options. -->
+            <div class="editor-tool-row" aria-label="Exercise tools">
+              <button id="sampleChineseQuickBtn" class="secondary-btn compact-btn" type="button"><span aria-hidden="true">❧</span> Sample Chinese</button>
+              <button id="sampleEnglishQuickBtn" class="secondary-btn compact-btn" type="button"><span aria-hidden="true">◉</span> ESL exercise</button>
+              <span class="toolbar-divider" aria-hidden="true"></span>
+              <button id="importQuickBtn" class="secondary-btn compact-btn" type="button"><span aria-hidden="true">↥</span> Import .txt / .json</button>
+              <button id="exportQuickBtn" class="secondary-btn compact-btn" type="button"><span aria-hidden="true">↧</span> Export JSON</button>
+            </div>
+            <!-- Three equal-status builder panels with independent scroll areas. -->
+            <div class="panel-body editor-body">
+              <div class="builder-grid">
+                <section class="builder-pane">
+                  <div class="builder-pane-header"><label for="exerciseInput">Exercise data</label></div>
+                  <div class="builder-pane-content input-pane-content">
+                    <textarea id="exerciseInput" class="exercise-input" spellcheck="false" placeholder="今天我看见一只[猫1]。&#10;&#10;VOCAB:&#10;1 猫 | māo - cat"></textarea>
+                  </div>
+                </section>
+                <div id="inputSplitOne" class="builder-splitter" role="separator" tabindex="0" aria-orientation="vertical" aria-label="Resize Exercise Data and Text Preview" title="Drag sideways to resize these panes; double-click to reset"><span aria-hidden="true"></span></div>
+                <section class="builder-pane">
+                  <div class="builder-pane-header"><h3>Text Preview</h3></div>
+                  <div class="builder-pane-content preview-box" id="textPreview">Your passage will appear here.</div>
+                </section>
+                <div id="inputSplitTwo" class="builder-splitter" role="separator" tabindex="0" aria-orientation="vertical" aria-label="Resize Text Preview and Vocabulary Preview" title="Drag sideways to resize these panes; double-click to reset"><span aria-hidden="true"></span></div>
+                <section class="builder-pane">
+                  <div class="builder-pane-header"><h3>Vocab Preview</h3></div>
+                  <div class="builder-pane-content preview-box" id="vocabPreview">Your words will appear here.</div>
+                </section>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <!-- Drag this rail to change only the builder height (not the prompt or top workspace). -->
+        <div id="builderHeightResizer" class="section-height-resizer" role="separator"
+             aria-label="Resize the Exercise Input and Preview panel independently"
+             aria-orientation="horizontal" tabindex="0" title="Drag to change only the exercise builder height; double-click to reset">
+          <span class="rail-grip" aria-hidden="true"></span>
+        </div>
+
+        <!-- Intentionally LAST among the work panels: rarely needed during a lesson. -->
+        <section class="panel prompt-panel is-resizable" id="promptPanel">
+            <header class="panel-header">
+              <div>
+                <div class="panel-kicker">AI helper</div>
+                <h2>AI Prompt Helper</h2>
+
+              </div>
+              <div class="panel-tools wide-tools">
+                <button id="copyPromptBtn" class="primary-btn small-primary" type="button">Copy to Clipboard</button>
+                <button id="togglePromptPanelBtn" class="secondary-btn panel-hide-btn" type="button" aria-expanded="true" aria-controls="promptPanel">Hide</button>
+              </div>
+            </header>
+            <div class="panel-body prompt-body">
+              <label class="field-label" for="aiPrompt">Editable exercise-creation instructions</label>
+              <textarea id="aiPrompt" class="ai-prompt" spellcheck="false">You are a language exercise preparation assistant. Create a vocabulary-matching exercise for Panda Vocab Matchup.
+
+Ask the user one question at a time:
+1. Please paste the text you want to turn into an exercise.
+2. What language pair should we use (for example, Chinese to English or French to English)?
+3. Should I include all content words, just difficult words, or a specified number? Any special requirements, such as pinyin?
+
+Wait for answers before generating the exercise.
+
+OUTPUT FORMAT (do not wrap in a Markdown code fence):
+A reading passage with vocabulary annotations such as [猫1], [学校2] and [interesting3].
+
+VOCAB:
+1 猫 | māo - cat
+2 学校 | xuéxiào - school
+3 interesting - engaging; capturing attention
+
+IMPORTANT:
+- Use exactly ONE VOCAB: section at the end.
+- Number the vocabulary from 1 upwards.
+- Reuse the same number for every repeated occurrence of the same item.
+- If pinyin is requested, use: NUMBER CHINESE | pīnyīn - TRANSLATION.
+- Keep the passage meaningful and do not invent vocabulary absent from it.</textarea>
+              <div class="output-format-box">
+                <strong>Output reminder</strong>
+                <p>A single passage + one VOCAB section only. No markdown code fence needed.</p>
+              </div>
+            </div>
+        </section>
+        <!-- The prompt has an INDEPENDENT lower-edge drag handle. -->
+        <div id="promptBottomResizer" class="prompt-bottom-resizer" role="separator"
+             aria-label="Adjust AI Prompt Helper height without moving the panels above"
+             aria-orientation="horizontal" tabindex="0" title="Drag to change AI Prompt Helper height; double-click to reset">
+          <span class="rail-grip" aria-hidden="true"></span>
+        </div>
+        <footer class="app-footer" id="appFooter">
+          <div class="footer-line"><span aria-hidden="true">❧</span> Panda Vocab Matchup <span class="footer-dot">·</span> The Neptune</div>
+          <div class="footer-panel-actions">
+            <button id="footerShowInputBtn" type="button" class="secondary-btn">Show Input Panel ↑</button>
+            <button id="footerShowPromptBtn" type="button" class="secondary-btn">Show AI Prompt ↑</button>
+            <button id="helpBtn" type="button" class="secondary-btn">Quick Help</button>
+          </div>
+          <div id="helpPanel" class="help-panel hidden">
+            <strong>How to use Panda</strong>
+            <p>Choose a sample in Options, or paste annotated text in Exercise Input &amp; Preview and click Load Exercise. Match each vocabulary word to a definition, then Check Answers at the top. Use the arrows to change sets. The middle bars resize the workspace.</p>
+          </div>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <div id="toastStack" class="toast-stack" aria-live="polite" aria-atomic="false"></div>
+</body>
+</html>

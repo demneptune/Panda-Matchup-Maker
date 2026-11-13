@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 180" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#e3d8b8" stop-opacity="0.9"/>
+      <stop offset="30%" stop-color="#f3ecdc" stop-opacity="0.95"/>
+      <stop offset="70%" stop-color="#f4eee0" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#dfd1ad" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="shojiWood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b89462"/>
+      <stop offset="100%" stop-color="#8c693a"/>
+    </linearGradient>
+    <radialGradient id="lampGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#fff8d6" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#fce89c" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#fce89c" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softBlur"><feGaussianBlur stdDeviation="2"/></filter>
+  </defs>
+  <rect width="1600" height="180" fill="url(#bgGrad)"/>
+  
+  <!-- Left Window / Shoji Grid -->
+  <g opacity="0.38">
+    <rect x="0" y="0" width="260" height="180" fill="#fbf7ec"/>
+    <line x1="65" y1="0" x2="65" y2="180" stroke="url(#shojiWood)" stroke-width="5"/>
+    <line x1="135" y1="0" x2="135" y2="180" stroke="url(#shojiWood)" stroke-width="5"/>
+    <line x1="205" y1="0" x2="205" y2="180" stroke="url(#shojiWood)" stroke-width="6"/>
+    <line x1="0" y1="60" x2="205" y2="60" stroke="url(#shojiWood)" stroke-width="4"/>
+    <line x1="0" y1="125" x2="205" y2="125" stroke="url(#shojiWood)" stroke-width="4"/>
+  </g>
+
+  <!-- Right Shoji Screen & Warm Table Lamp -->
+  <g opacity="0.45">
+    <rect x="1140" y="0" width="460" height="180" fill="#efe4ca"/>
+    <rect x="1150" y="10" width="160" height="150" fill="#fbf6ea" stroke="url(#shojiWood)" stroke-width="6"/>
+    <line x1="1203" y1="10" x2="1203" y2="160" stroke="url(#shojiWood)" stroke-width="3"/>
+    <line x1="1256" y1="10" x2="1256" y2="160" stroke="url(#shojiWood)" stroke-width="3"/>
+    <line x1="1150" y1="60" x2="1310" y2="60" stroke="url(#shojiWood)" stroke-width="3"/>
+    <line x1="1150" y1="110" x2="1310" y2="110" stroke="url(#shojiWood)" stroke-width="3"/>
+  </g>
+  
+  <!-- Lamp glow & lantern -->
+  <circle cx="1370" cy="88" r="95" fill="url(#lampGlow)"/>
+  <g opacity="0.82">
+    <rect x="1352" y="132" width="36" height="8" rx="3" fill="#4a3822"/>
+    <ellipse cx="1370" cy="88" rx="34" ry="44" fill="#fff6d1" stroke="#d4b26e" stroke-width="2"/>
+    <line x1="1338" y1="74" x2="1402" y2="74" stroke="#e0c283" stroke-width="1.5"/>
+    <line x1="1336" y1="88" x2="1404" y2="88" stroke="#e0c283" stroke-width="1.5"/>
+    <line x1="1338" y1="102" x2="1402" y2="102" stroke="#e0c283" stroke-width="1.5"/>
+  </g>
+
+  <!-- Hanging Bamboo Leaves Left & Center-Right -->
+  <g stroke="#557a36" stroke-linecap="round" fill="none" opacity="0.72">
+    <path d="M75,-10 Q95,60 120,135" stroke-width="4.5"/>
+    <path d="M120,-10 Q130,50 155,110" stroke-width="3.5"/>
+    <path d="M920,-10 Q900,45 875,95" stroke-width="3.5"/>
+    <path d="M1460,-10 Q1440,65 1415,150" stroke-width="4.5"/>
+    <path d="M1500,-10 Q1490,55 1470,130" stroke-width="3.5"/>
+  </g>
+  <g fill="#688f41" opacity="0.75">
+    <ellipse cx="75" cy="45" rx="28" ry="8" transform="rotate(-28 75 45)"/>
+    <ellipse cx="98" cy="72" rx="32" ry="8" transform="rotate(24 98 72)"/>
+    <ellipse cx="88" cy="105" rx="26" ry="7" transform="rotate(-22 88 105)"/>
+    <ellipse cx="138" cy="52" rx="26" ry="7" transform="rotate(30 138 52)"/>
+    <ellipse cx="145" cy="88" rx="24" ry="7" transform="rotate(-18 145 88)"/>
+    <ellipse cx="890" cy="42" rx="28" ry="7" transform="rotate(-32 890 42)"/>
+    <ellipse cx="910" cy="62" rx="25" ry="7" transform="rotate(22 910 62)"/>
+    <ellipse cx="870" cy="78" rx="22" ry="6" transform="rotate(-20 870 78)"/>
+    <ellipse cx="1435" cy="55" rx="28" ry="8" transform="rotate(-26 1435 55)"/>
+    <ellipse cx="1465" cy="85" rx="28" ry="8" transform="rotate(25 1465 85)"/>
+    <ellipse cx="1488" cy="48" rx="25" ry="7" transform="rotate(-20 1488 48)"/>
+  </g>
+
+  <!-- Cute Reading Panda Illustration on Left -->
+  <g transform="translate(175, 18)">
+    <!-- Ears -->
+    <circle cx="38" cy="28" r="16" fill="#232922"/>
+    <circle cx="104" cy="28" r="16" fill="#232922"/>
+    <!-- Head -->
+    <ellipse cx="71" cy="64" rx="46" ry="39" fill="#fdfbf7" stroke="#d8d0c0" stroke-width="1.5"/>
+    <!-- Eye patches -->
+    <ellipse cx="53" cy="60" rx="13" ry="16" transform="rotate(-14 53 60)" fill="#232922"/>
+    <ellipse cx="89" cy="60" rx="13" ry="16" transform="rotate(14 89 60)" fill="#232922"/>
+    <!-- Eyes -->
+    <circle cx="55" cy="58" r="4" fill="#ffffff"/>
+    <circle cx="56" cy="57" r="1.8" fill="#111"/>
+    <circle cx="87" cy="58" r="4" fill="#ffffff"/>
+    <circle cx="86" cy="57" r="1.8" fill="#111"/>
+    <!-- Blush -->
+    <ellipse cx="42" cy="74" rx="7" ry="4" fill="#f2a999" opacity="0.55"/>
+    <ellipse cx="100" cy="74" rx="7" ry="4" fill="#f2a999" opacity="0.55"/>
+    <!-- Nose & Smile -->
+    <ellipse cx="71" cy="71" rx="6" ry="4" fill="#232922"/>
+    <path d="M65,78 Q71,83 77,78" stroke="#232922" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    <!-- Paws & Open Book -->
+    <path d="M28,132 L71,122 L71,152 L28,144 Z" fill="#fffdf8" stroke="#8c7a5b" stroke-width="2"/>
+    <path d="M114,132 L71,122 L71,152 L114,144 Z" fill="#f7f1e1" stroke="#8c7a5b" stroke-width="2"/>
+    <ellipse cx="34" cy="126" rx="13" ry="10" fill="#232922"/>
+    <ellipse cx="108" cy="126" rx="13" ry="10" fill="#232922"/>
+  </g>
+</svg>

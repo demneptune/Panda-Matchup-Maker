@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 220" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <linearGradient id="skyFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fffdf7" stop-opacity="0"/>
+      <stop offset="55%" stop-color="#edf2dc" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#d8e6c3" stop-opacity="0.82"/>
+    </linearGradient>
+    <linearGradient id="waterStream" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#cce3d4" stop-opacity="0.55"/>
+      <stop offset="50%" stop-color="#bad9c8" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#d5e8dc" stop-opacity="0.5"/>
+    </linearGradient>
+    <filter id="mistBlur"><feGaussianBlur stdDeviation="3"/></filter>
+  </defs>
+  <rect width="960" height="220" fill="url(#skyFade)"/>
+  <!-- Distant Hills -->
+  <path d="M0,130 Q140,75 290,118 T610,110 T960,125 L960,220 L0,220 Z" fill="#d4e0b8" opacity="0.55" filter="url(#mistBlur)"/>
+  <path d="M0,152 Q180,115 360,145 T720,135 T960,140 L960,220 L0,220 Z" fill="#b4cc98" opacity="0.42"/>
+  <!-- Stream -->
+  <path d="M0,174 Q240,152 480,168 T960,162 L960,220 L0,220 Z" fill="url(#waterStream)"/>
+  <path d="M40,185 Q200,172 360,184 M480,192 Q670,178 860,190" stroke="#ffffff" stroke-width="2.5" opacity="0.6" fill="none" stroke-linecap="round"/>
+  
+  <!-- Traditional Wooden Chair & Tea Table Silhouette on Right -->
+  <g transform="translate(760, 128)" opacity="0.52" stroke="#6f7d54" stroke-width="2.5" fill="none" stroke-linecap="round">
+    <path d="M0,55 L0,15 L26,15 L26,55"/>
+    <path d="M-6,32 L32,32"/>
+    <path d="M-4,15 L30,15"/>
+  </g>
+
+  <!-- Foreground Bamboo Stalks & Leaves Left and Right -->
+  <g stroke="#6b8c49" stroke-linecap="round" fill="none" opacity="0.65">
+    <path d="M18,220 Q34,140 52,65" stroke-width="4"/>
+    <path d="M42,220 Q58,150 76,85" stroke-width="3"/>
+    <path d="M70,220 Q82,165 96,115" stroke-width="2.5"/>
+    <path d="M935,220 Q918,150 902,90" stroke-width="3.5"/>
+    <path d="M910,220 Q898,168 885,122" stroke-width="2.5"/>
+  </g>
+  <g fill="#7ca155" opacity="0.62">
+    <ellipse cx="38" cy="112" rx="24" ry="7" transform="rotate(-28 38 112)"/>
+    <ellipse cx="48" cy="88" rx="22" ry="6.5" transform="rotate(25 48 88)"/>
+    <ellipse cx="64" cy="134" rx="25" ry="7" transform="rotate(28 64 134)"/>
+    <ellipse cx="82" cy="115" rx="20" ry="6" transform="rotate(-22 82 115)"/>
+    <ellipse cx="92" cy="152" rx="22" ry="6.5" transform="rotate(20 92 152)"/>
+    <ellipse cx="908" cy="126" rx="22" ry="7" transform="rotate(-25 908 126)"/>
+    <ellipse cx="890" cy="155" rx="24" ry="6.5" transform="rotate(28 890 155)"/>
+  </g>
+</svg>
